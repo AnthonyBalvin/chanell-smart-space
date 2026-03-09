@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import { ShoppingCart, Menu, X } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const { itemCount, setIsCartOpen } = useCart();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const location = useLocation();
+  const isHome = location.pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -13,12 +16,18 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = [
-    { label: "Productos", href: "#productos" },
-    { label: "Catálogo", href: "#catalogo" },
-    { label: "Garantía", href: "#garantia" },
-    { label: "FAQ", href: "#faq" },
-  ];
+  const navLinks = isHome
+    ? [
+        { label: "Productos", href: "#productos" },
+        { label: "Catálogo", to: "/catalogo" },
+        { label: "Garantía", href: "#garantia" },
+        { label: "FAQ", href: "#faq" },
+      ]
+    : [
+        { label: "Inicio", to: "/" },
+        { label: "Garantía", to: "/#garantia" },
+        { label: "FAQ", to: "/#faq" },
+      ];
 
   return (
     <nav
@@ -29,21 +38,31 @@ const Navbar = () => {
       }`}
     >
       <div className="section-container flex items-center justify-between h-16 md:h-20">
-        <a href="#" className="font-heading text-xl md:text-2xl font-bold tracking-tight">
+        <Link to="/" className="font-heading text-xl md:text-2xl font-bold tracking-tight">
           <span className="gradient-text">Chanell</span>{" "}
           <span className="text-foreground">Tecnología</span>
-        </a>
+        </Link>
 
         <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {link.label}
-            </a>
-          ))}
+          {navLinks.map((link) =>
+            'to' in link && link.to ? (
+              <Link
+                key={link.label}
+                to={link.to}
+                className="text-sm font-medium text-muted-foreground hover:text-accent transition-colors"
+              >
+                {link.label}
+              </Link>
+            ) : (
+              <a
+                key={link.label}
+                href={'href' in link ? link.href : '#'}
+                className="text-sm font-medium text-muted-foreground hover:text-accent transition-colors"
+              >
+                {link.label}
+              </a>
+            )
+          )}
         </div>
 
         <div className="flex items-center gap-3">
@@ -69,16 +88,27 @@ const Navbar = () => {
 
       {mobileOpen && (
         <div className="md:hidden bg-card/95 backdrop-blur-lg border-b border-border/50 px-4 pb-4">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setMobileOpen(false)}
-              className="block py-3 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {link.label}
-            </a>
-          ))}
+          {navLinks.map((link) =>
+            'to' in link && link.to ? (
+              <Link
+                key={link.label}
+                to={link.to}
+                onClick={() => setMobileOpen(false)}
+                className="block py-3 text-sm font-medium text-muted-foreground hover:text-accent transition-colors"
+              >
+                {link.label}
+              </Link>
+            ) : (
+              <a
+                key={link.label}
+                href={'href' in link ? link.href : '#'}
+                onClick={() => setMobileOpen(false)}
+                className="block py-3 text-sm font-medium text-muted-foreground hover:text-accent transition-colors"
+              >
+                {link.label}
+              </a>
+            )
+          )}
         </div>
       )}
     </nav>

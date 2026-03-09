@@ -1,21 +1,30 @@
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, ArrowRight } from "lucide-react";
 import { products } from "@/data/products";
 import { useCart } from "@/contexts/CartContext";
+import { Link } from "react-router-dom";
 
 const FeaturedProducts = () => {
   const { addToCart } = useCart();
-  const featured = products.filter((p) => p.tag);
 
   return (
     <section id="productos" className="py-20 md:py-28">
       <div className="section-container">
-        <div className="text-center mb-16">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">
-            Productos <span className="gradient-text">destacados</span>
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Los equipos más populares seleccionados por nuestros expertos.
-          </p>
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
+          <div>
+            <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">
+              Productos <span className="gradient-text">destacados</span>
+            </h2>
+            <p className="text-muted-foreground max-w-2xl">
+              Los equipos más populares seleccionados por nuestros expertos.
+            </p>
+          </div>
+          <Link
+            to="/catalogo"
+            className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-accent/80 transition-colors whitespace-nowrap"
+          >
+            Ver catálogo completo
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">

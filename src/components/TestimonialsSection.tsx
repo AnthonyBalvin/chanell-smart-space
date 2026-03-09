@@ -61,7 +61,7 @@ const TestimonialsSection = () => {
               "{t.text}"
             </p>
             <p className="font-heading font-semibold">{t.name}</p>
-            <p className="text-sm text-muted-foreground">{t.location}</p>
+            <p className="text-sm text-accent">{t.location}</p>
 
             <div className="flex justify-center gap-2 mt-8">
               {testimonials.map((_, i) => (

@@ -3,18 +3,14 @@ import heroImage from "@/assets/hero-projector.jpg";
 
 const HeroSection = () => {
   const values = [
-    { icon: Globe, label: "Importación directa" },
-    { icon: Shield, label: "Garantía real" },
-    { icon: Star, label: "Equipos seleccionados" },
-    { icon: Headphones, label: "Asesoría personalizada" },
+    { icon: Globe, label: "Importación directa", blue: true },
+    { icon: Shield, label: "Garantía real", blue: false },
+    { icon: Star, label: "Equipos seleccionados", blue: true },
+    { icon: Headphones, label: "Asesoría personalizada", blue: false },
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center pt-20" style={{ background: "var(--gradient-hero)" }}>
-      {/* Subtle decorative shapes */}
-      <div className="absolute top-20 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 left-0 w-80 h-80 bg-accent/5 rounded-full blur-3xl" />
-
+    <section className="relative min-h-screen flex items-center pt-20">
       <div className="section-container relative z-10 py-12 md:py-20">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8">
@@ -24,7 +20,8 @@ const HeroSection = () => {
                 <span className="gradient-text">entretenimiento inteligente</span>
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground max-w-lg leading-relaxed">
-                Proyectores inteligentes y TV Box premium para transformar tu forma de disfrutar contenido.
+                Proyectores inteligentes y TV Box premium para transformar tu forma de{" "}
+                <span className="text-accent font-medium">disfrutar contenido</span>.
               </p>
             </div>
 
@@ -45,8 +42,10 @@ const HeroSection = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
               {values.map((v) => (
                 <div key={v.label} className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <v.icon className="w-4 h-4 text-primary" />
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                    v.blue ? "bg-accent/10" : "bg-primary/10"
+                  }`}>
+                    <v.icon className={`w-4 h-4 ${v.blue ? "text-accent" : "text-primary"}`} />
                   </div>
                   <span className="text-xs font-medium text-foreground">{v.label}</span>
                 </div>
