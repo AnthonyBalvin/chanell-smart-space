@@ -42,6 +42,7 @@
     --gradient-pink: linear-gradient(135deg, hsl(340 65% 55%) 0%, hsl(350 70% 60%) 100%);
     --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(340 15% 98%) 100%);
     --gradient-footer: linear-gradient(180deg, hsl(220 14% 96%) 0%, hsl(340 15% 95%) 100%);
+    --gradient-blue: linear-gradient(135deg, hsl(210 60% 55%) 0%, hsl(220 65% 60%) 100%);
 
     --shadow-soft: 0 2px 20px -4px hsl(340 30% 50% / 0.08);
     --shadow-card: 0 4px 30px -6px hsl(220 30% 50% / 0.1);
@@ -70,6 +71,38 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-body);
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -2;
+    background:
+      radial-gradient(ellipse 80% 60% at 10% 20%, hsl(340 50% 90% / 0.3) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 90% 10%, hsl(210 60% 90% / 0.25) 0%, transparent 55%),
+      radial-gradient(ellipse 70% 50% at 50% 80%, hsl(340 40% 92% / 0.2) 0%, transparent 50%),
+      radial-gradient(ellipse 50% 40% at 80% 70%, hsl(210 50% 92% / 0.15) 0%, transparent 50%),
+      linear-gradient(180deg, hsl(0 0% 99%) 0%, hsl(340 15% 97%) 30%, hsl(210 15% 97%) 60%, hsl(0 0% 98%) 100%);
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background:
+      radial-gradient(circle 400px at 20% 50%, hsl(210 40% 94% / 0.3) 0%, transparent 100%),
+      radial-gradient(circle 300px at 75% 30%, hsl(340 35% 94% / 0.25) 0%, transparent 100%),
+      radial-gradient(circle 350px at 60% 75%, hsl(210 30% 95% / 0.2) 0%, transparent 100%);
+    pointer-events: none;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -90,6 +123,11 @@
   .gradient-text {
     @apply bg-clip-text text-transparent;
     background-image: var(--gradient-pink);
+  }
+
+  .gradient-text-blue {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-blue);
   }
 
   .hover-lift {

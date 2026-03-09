@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const FinalCTA = () => {
   return (
     <section className="py-20 md:py-28" style={{ background: "var(--gradient-soft)" }}>
@@ -10,9 +12,9 @@ const FinalCTA = () => {
           Descubre nuestra selección premium de proyectores y TV Box con garantía real y asesoría personalizada.
         </p>
         <div className="flex flex-wrap justify-center gap-4">
-          <a href="#catalogo" className="btn-primary-gradient inline-flex items-center">
+          <Link to="/catalogo" className="btn-primary-gradient inline-flex items-center">
             Ver catálogo
-          </a>
+          </Link>
           <a
             href="https://wa.me/51934301716?text=Hola%2C%20me%20interesa%20comprar%20un%20producto"
             target="_blank"
