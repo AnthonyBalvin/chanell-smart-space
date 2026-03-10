@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from "react";
+import { toast } from "sonner";
 
 export interface Product {
   id: string;
@@ -44,7 +45,19 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       }
       return [...prev, { product, quantity: 1 }];
     });
-    setIsCartOpen(true);
+    
+    // Show toast notification instead of opening cart
+    toast.success("Producto agregado al carrito", {
+      duration: 3500,
+      action: {
+        label: "Ver carrito",
+        onClick: () => setIsCartOpen(true),
+      },
+      cancel: {
+        label: "Seguir comprando",
+        onClick: () => {}, // Just dismisses the toast
+      },
+    });
   };
 
   const removeFromCart = (productId: string) => {

@@ -44,9 +44,8 @@ const ValueSection = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {values.map((v) => (
             <div key={v.title} className="glass-card p-6 hover-lift text-center">
-              <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4 ${
-                v.accent === "blue" ? "bg-accent/10" : "bg-primary/10"
-              }`}>
+              <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4 ${v.accent === "blue" ? "bg-accent/10" : "bg-primary/10"
+                }`}>
                 <v.icon className={`w-7 h-7 ${v.accent === "blue" ? "text-accent" : "text-primary"}`} />
               </div>
               <h3 className="font-heading font-semibold text-lg mb-2">{v.title}</h3>

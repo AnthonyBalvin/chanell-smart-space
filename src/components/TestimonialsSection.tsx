@@ -68,9 +68,8 @@ const TestimonialsSection = () => {
                 <button
                   key={i}
                   onClick={() => setCurrent(i)}
-                  className={`w-2.5 h-2.5 rounded-full transition-all ${
-                    i === current ? "bg-primary w-6" : "bg-border"
-                  }`}
+                  className={`w-2.5 h-2.5 rounded-full transition-all ${i === current ? "bg-primary w-6" : "bg-border"
+                    }`}
                 />
               ))}
             </div>

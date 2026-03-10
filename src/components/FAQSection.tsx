@@ -49,9 +49,8 @@ const FAQSection = () => {
               >
                 <span className="font-medium text-sm md:text-base pr-4">{faq.q}</span>
                 <ChevronDown
-                  className={`w-5 h-5 text-muted-foreground flex-shrink-0 transition-transform ${
-                    openIndex === i ? "rotate-180" : ""
-                  }`}
+                  className={`w-5 h-5 text-muted-foreground flex-shrink-0 transition-transform ${openIndex === i ? "rotate-180" : ""
+                    }`}
                 />
               </button>
               {openIndex === i && (

@@ -24,9 +24,8 @@ const HowItWorks = () => {
               {i < steps.length - 1 && (
                 <div className="hidden md:block absolute top-8 left-[60%] right-[-40%] h-px bg-border" />
               )}
-              <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 relative z-10 ${
-                step.blue ? "bg-accent/10" : "bg-primary/10"
-              }`}>
+              <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 relative z-10 ${step.blue ? "bg-accent/10" : "bg-primary/10"
+                }`}>
                 <step.icon className={`w-7 h-7 ${step.blue ? "text-accent" : "text-primary"}`} />
               </div>
               <span className={`text-xs font-bold mb-2 block ${step.blue ? "text-accent" : "text-primary"}`}>Paso {i + 1}</span>
