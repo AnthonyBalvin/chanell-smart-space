@@ -1,9 +1,16 @@
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const FinalCTA = () => {
   return (
-    <section className="py-20 md:py-28" style={{ background: "var(--gradient-soft)" }}>
-      <div className="section-container text-center">
+    <section className="py-20 md:py-28 relative overflow-hidden">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="section-container text-center"
+      >
         <h2 className="font-heading text-3xl md:text-5xl font-bold mb-6 max-w-3xl mx-auto leading-tight">
           Transforma tu forma de disfrutar el{" "}
           <span className="gradient-text">entretenimiento</span>
@@ -24,7 +31,7 @@ const FinalCTA = () => {
             Comprar por WhatsApp
           </a>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };

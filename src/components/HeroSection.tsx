@@ -1,18 +1,13 @@
-import { ArrowRight, MessageCircle, Globe, Shield, Star, Headphones } from "lucide-react";
+import { ArrowRight, MessageCircle } from "lucide-react";
 import heroImage from "@/assets/hero-projector.jpg";
 import { Link } from "react-router-dom";
 
 const HeroSection = () => {
-  const values = [
-    { icon: Globe, label: "Importación directa", blue: true },
-    { icon: Shield, label: "Garantía real", blue: false },
-    { icon: Star, label: "Equipos seleccionados", blue: true },
-    { icon: Headphones, label: "Asesoría personalizada", blue: false },
-  ];
+
 
   return (
     <section className="relative min-h-[100dvh] flex items-center justify-center pt-20 overflow-hidden">
-      
+
       {/* 1. Background Image — GPU-accelerated layer */}
       <img
         src={heroImage}
@@ -23,13 +18,13 @@ const HeroSection = () => {
       />
 
       {/* 2. Dark overlay + gradient blend (consolidated — no backdrop-blur for performance) */}
-      <div 
+      <div
         className="absolute inset-0 z-[1]"
         style={{
           background: "linear-gradient(135deg, rgba(20,30,50,0.78) 0%, rgba(43,90,158,0.55) 40%, rgba(241,180,232,0.25) 100%)"
         }}
       />
-      
+
       {/* Top Navbar Shadow Overlay */}
       <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-black/80 to-transparent z-[2]" />
 
@@ -38,21 +33,21 @@ const HeroSection = () => {
 
       {/* Content Container */}
       <div className="section-container relative z-10 w-full flex flex-col items-center text-center mx-auto max-w-3xl px-4 md:px-0">
-        
+
         <div className="space-y-8 w-full flex flex-col items-center">
-          
+
           <div className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full bg-white/15 border border-white/20 text-sm font-medium text-white shadow-lg mx-auto animate-fade-down">
             <span className="w-2 h-2 rounded-full bg-accent animate-pulse shadow-[0_0_10px_rgba(241,180,232,0.8)]" />
             La revolución del Home Cinema
           </div>
-          
+
           <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight text-white drop-shadow-2xl animate-fade-up text-center mx-auto">
             Convierte cualquier pantalla en{" "}
             <span className="text-transparent bg-clip-text" style={{ backgroundImage: 'var(--gradient-pink)' }}>
               entretenimiento inteligente
             </span>
           </h1>
-          
+
           <p className="text-lg md:text-xl lg:text-2xl text-white/90 leading-relaxed max-w-2xl mx-auto text-center drop-shadow-lg font-medium animate-fade-up" style={{ animationDelay: '100ms' }}>
             Proyectores inteligentes y TV Box premium para transformar tu forma de disfrutar películas, series y streaming.
           </p>
@@ -77,17 +72,6 @@ const HeroSection = () => {
             </a>
           </div>
 
-          {/* Benefits / Values */}
-          <div className="flex flex-wrap justify-center items-center gap-4 pt-6 animate-fade-up" style={{ animationDelay: '300ms' }}>
-            {values.map((v) => (
-              <div key={v.label} className="flex items-center gap-2 bg-white/10 border border-white/10 px-3 py-2 rounded-xl text-white">
-                <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 bg-white/10">
-                  <v.icon className={`w-4 h-4 ${v.blue ? "text-blue-300" : "text-pink-300"}`} />
-                </div>
-                <span className="text-xs font-medium">{v.label}</span>
-              </div>
-            ))}
-          </div>
 
         </div>
 

@@ -4,37 +4,28 @@ import { products } from "@/data/products";
 import { useCart } from "@/contexts/CartContext";
 
 type SortOption = "recommended" | "bestseller" | "price-asc" | "price-desc";
-type PriceRange = "all" | "under300" | "300-800" | "800-1200" | "over1200";
 type CategoryFilter = "all" | "projector" | "tvbox";
 
 const ProductCatalog = () => {
   const { addToCart } = useCart();
   const [category, setCategory] = useState<CategoryFilter>("all");
-  const [priceRange, setPriceRange] = useState<PriceRange>("all");
+  const [maxPrice, setMaxPrice] = useState<number>(2000);
   const [sort, setSort] = useState<SortOption>("recommended");
   const [showFilters, setShowFilters] = useState(false);
 
   const filtered = useMemo(() => {
     let result = [...products];
     if (category !== "all") result = result.filter((p) => p.category === category);
-    if (priceRange !== "all") {
-      result = result.filter((p) => {
-        switch (priceRange) {
-          case "under300": return p.price < 300;
-          case "300-800": return p.price >= 300 && p.price <= 800;
-          case "800-1200": return p.price >= 800 && p.price <= 1200;
-          case "over1200": return p.price > 1200;
-          default: return true;
-        }
-      });
-    }
+    
+    result = result.filter((p) => p.price <= maxPrice);
+    
     switch (sort) {
       case "price-asc": result.sort((a, b) => a.price - b.price); break;
       case "price-desc": result.sort((a, b) => b.price - a.price); break;
       case "bestseller": result.sort((a, b) => (b.tag === "Más vendido" ? 1 : 0) - (a.tag === "Más vendido" ? 1 : 0)); break;
     }
     return result;
-  }, [category, priceRange, sort]);
+  }, [category, maxPrice, sort]);
 
   const filterBtn = (label: string, active: boolean, onClick: () => void) => (
     <button
@@ -82,12 +73,20 @@ const ProductCatalog = () => {
             {filterBtn("TV Box", category === "tvbox", () => setCategory("tvbox"))}
           </div>
           <div className="w-px bg-border mx-2 hidden md:block" />
-          <div className="flex flex-wrap gap-2">
-            {filterBtn("Todos los precios", priceRange === "all", () => setPriceRange("all"))}
-            {filterBtn("< S/300", priceRange === "under300", () => setPriceRange("under300"))}
-            {filterBtn("S/300 – S/800", priceRange === "300-800", () => setPriceRange("300-800"))}
-            {filterBtn("S/800 – S/1200", priceRange === "800-1200", () => setPriceRange("800-1200"))}
-            {filterBtn("> S/1200", priceRange === "over1200", () => setPriceRange("over1200"))}
+          <div className="flex flex-col justify-center min-w-[200px] px-2 flex-1 max-w-xs">
+            <div className="flex justify-between items-center mb-2 text-sm">
+              <span className="font-medium text-muted-foreground">Precio máximo:</span>
+              <span className="font-bold text-primary">S/{maxPrice}</span>
+            </div>
+            <input 
+              type="range" 
+              min="100" 
+              max="2000" 
+              step="50" 
+              value={maxPrice} 
+              onChange={(e) => setMaxPrice(Number(e.target.value))}
+              className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
+            />
           </div>
         </div>
 

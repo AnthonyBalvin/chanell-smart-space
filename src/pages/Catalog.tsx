@@ -2,14 +2,14 @@ import { useState, useMemo, useEffect } from "react";
 import { ShoppingCart, SlidersHorizontal, ArrowLeft, Search, X } from "lucide-react";
 import { products } from "@/data/products";
 import { useCart } from "@/contexts/CartContext";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import CartDrawer from "@/components/CartDrawer";
 import Footer from "@/components/Footer";
 
 type SortOption = "recommended" | "bestseller" | "price-asc" | "price-desc";
-type PriceRange = "all" | "under300" | "300-800" | "800-1200" | "over1200";
 type CategoryFilter = "all" | "projector" | "tvbox";
+type PriceFilter = "all" | "under500" | "500to1000" | "over1000";
 type FeatureFilter = "voice" | "touch" | "power" | "apps";
 
 const featureMap: Record<FeatureFilter, string> = {
@@ -21,9 +21,12 @@ const featureMap: Record<FeatureFilter, string> = {
 
 const Catalog = () => {
   const { addToCart } = useCart();
+  const [searchParams] = useSearchParams();
+  const initialCategory = (searchParams.get("categoria") as CategoryFilter) || "all";
+
   const [searchTerm, setSearchTerm] = useState("");
-  const [category, setCategory] = useState<CategoryFilter>("all");
-  const [priceRange, setPriceRange] = useState<PriceRange>("all");
+  const [category, setCategory] = useState<CategoryFilter>(initialCategory);
+  const [priceFilter, setPriceFilter] = useState<PriceFilter>("all");
   const [sort, setSort] = useState<SortOption>("recommended");
   const [features, setFeatures] = useState<FeatureFilter[]>([]);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
@@ -55,45 +58,36 @@ const Catalog = () => {
     // Search filter
     if (searchTerm.trim() !== "") {
       const lowerSearch = searchTerm.toLowerCase();
-      result = result.filter(p => 
-        p.name.toLowerCase().includes(lowerSearch) || 
+      result = result.filter(p =>
+        p.name.toLowerCase().includes(lowerSearch) ||
         p.specs.some(s => s.toLowerCase().includes(lowerSearch))
       );
     }
 
     if (category !== "all") result = result.filter((p) => p.category === category);
-    
-    if (priceRange !== "all") {
-      result = result.filter((p) => {
-        switch (priceRange) {
-          case "under300": return p.price < 300;
-          case "300-800": return p.price >= 300 && p.price <= 800;
-          case "800-1200": return p.price >= 800 && p.price <= 1200;
-          case "over1200": return p.price > 1200;
-          default: return true;
-        }
-      });
-    }
-    
+
+    if (priceFilter === "under500") result = result.filter(p => p.price <= 500);
+    else if (priceFilter === "500to1000") result = result.filter(p => p.price > 500 && p.price <= 1000);
+    else if (priceFilter === "over1000") result = result.filter(p => p.price > 1000);
+
     if (features.length > 0) {
       result = result.filter((p) =>
         features.every((f) => p.features?.includes(featureMap[f]))
       );
     }
-    
+
     switch (sort) {
       case "price-asc": result.sort((a, b) => a.price - b.price); break;
       case "price-desc": result.sort((a, b) => b.price - a.price); break;
       case "bestseller": result.sort((a, b) => (b.tag === "Más vendido" ? 1 : 0) - (a.tag === "Más vendido" ? 1 : 0)); break;
     }
     return result;
-  }, [searchTerm, category, priceRange, sort, features]);
+  }, [searchTerm, category, priceFilter, sort, features]);
 
   const filterCheckbox = (label: string, active: boolean, onClick: () => void) => (
     <label className="flex items-center gap-3 cursor-pointer group">
-      <div className={`w-5 h-5 rounded border flex items-center justify-center transition-all ${
-        active ? "bg-primary border-primary text-primary-foreground" : "border-muted-foreground/30 group-hover:border-primary/50"
-      }`}>
+      <div className={`w-5 h-5 rounded border flex items-center justify-center transition-all ${active ? "bg-primary border-primary text-primary-foreground" : "border-muted-foreground/30 group-hover:border-primary/50"
+        }`}>
         {active && <span className="text-[10px] sm:text-xs">✓</span>}
       </div>
       <span className={`text-sm sm:text-base transition-colors ${active ? "text-foreground font-medium" : "text-muted-foreground group-hover:text-foreground"}`}>
@@ -116,20 +110,19 @@ const Catalog = () => {
         </div>
       </div>
       <div className="w-full h-px bg-border/50" />
-      
+
       {/* Price */}
       <div>
-        <h4 className="font-heading font-semibold text-lg mb-4">Precio</h4>
+        <h4 className="font-heading font-semibold text-lg mb-4">Rango de Precio</h4>
         <div className="flex flex-col gap-3">
-          {filterCheckbox("Todos", priceRange === "all", () => setPriceRange("all"))}
-          {filterCheckbox("Menos de S/300", priceRange === "under300", () => setPriceRange("under300"))}
-          {filterCheckbox("S/300 – S/800", priceRange === "300-800", () => setPriceRange("300-800"))}
-          {filterCheckbox("S/800 – S/1200", priceRange === "800-1200", () => setPriceRange("800-1200"))}
-          {filterCheckbox("Más de S/1200", priceRange === "over1200", () => setPriceRange("over1200"))}
+          {filterCheckbox("Cualquier precio", priceFilter === "all", () => setPriceFilter("all"))}
+          {filterCheckbox("Hasta S/500", priceFilter === "under500", () => setPriceFilter("under500"))}
+          {filterCheckbox("S/500 a S/1000", priceFilter === "500to1000", () => setPriceFilter("500to1000"))}
+          {filterCheckbox("Más de S/1000", priceFilter === "over1000", () => setPriceFilter("over1000"))}
         </div>
       </div>
       <div className="w-full h-px bg-border/50" />
-      
+
       {/* Features */}
       <div>
         <h4 className="font-heading font-semibold text-lg mb-4">Características</h4>
@@ -146,13 +139,13 @@ const Catalog = () => {
     <div className="min-h-screen bg-transparent relative">
       {/* Subtle background gradient to maintain visual depth without overpowering */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/5 via-background to-background -z-10 pointer-events-none" />
-      
+
       <Navbar />
       <CartDrawer />
-      
+
       <main className="pt-24 pb-20">
         <div className="section-container">
-          
+
           {/* Header area with navigation and title */}
           <div className="mb-8">
             <Link to="/" className="inline-flex items-center gap-2 text-sm text-accent hover:text-accent/80 transition-colors mb-4">
@@ -165,7 +158,7 @@ const Catalog = () => {
           </div>
 
           <div className="flex flex-col lg:flex-row gap-8 items-start">
-            
+
             {/* Desktop Filter Sidebar */}
             <aside className="hidden lg:block w-64 shrink-0 sticky top-28 bg-card/30 backdrop-blur-md rounded-2xl p-6 border border-white/10 shadow-sm">
               <FilterPanel />
@@ -173,16 +166,16 @@ const Catalog = () => {
 
             {/* Main Content Area */}
             <div className="flex-1 w-full flex flex-col min-w-0">
-              
+
               {/* Toolbar: Search, Mobile Filter Toggle, Sort, Results Count */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 bg-card/30 backdrop-blur-md rounded-2xl p-4 border border-white/5 shadow-sm">
-                
+
                 {/* Search Bar */}
                 <div className="relative flex-1 max-w-sm">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                  <input 
-                    type="text" 
-                    placeholder="Buscar productos..." 
+                  <input
+                    type="text"
+                    placeholder="Buscar productos..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="w-full pl-9 pr-4 py-2.5 bg-background border border-border rounded-xl text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all placeholder:text-muted-foreground"
@@ -224,11 +217,11 @@ const Catalog = () => {
                   <p className="text-muted-foreground max-w-sm mx-auto">
                     Intenta ajustar los filtros de búsqueda o revisar otras categorías.
                   </p>
-                  <button 
+                  <button
                     onClick={() => {
                       setSearchTerm("");
                       setCategory("all");
-                      setPriceRange("all");
+                      setPriceFilter("all");
                       setFeatures([]);
                     }}
                     className="mt-6 text-accent hover:text-accent/80 transition-colors text-sm font-medium"
@@ -239,33 +232,32 @@ const Catalog = () => {
               ) : (
                 <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
                   {filtered.map((product) => (
-                    <div 
-                      key={product.id} 
+                    <div
+                      key={product.id}
                       className="group flex flex-col bg-card/50 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300"
                     >
                       {/* Image Area with soft background */}
                       <div className="relative pt-6 pb-4 px-4 bg-gradient-to-b from-white/5 to-transparent flex items-center justify-center">
                         {product.tag && (
-                          <span className={`absolute top-3 left-3 z-10 text-[10px] md:text-xs px-2.5 py-1 rounded-full font-medium ${
-                            product.tag === 'Más vendido' 
-                            ? 'bg-accent/10 text-accent border border-accent/20' 
+                          <span className={`absolute top-3 left-3 z-10 text-[10px] md:text-xs px-2.5 py-1 rounded-full font-medium ${product.tag === 'Más vendido'
+                            ? 'bg-accent/10 text-accent border border-accent/20'
                             : 'bg-primary/10 text-primary border border-primary/20'
-                          }`}>
+                            }`}>
                             {product.tag}
                           </span>
                         )}
-                        <img 
-                          src={product.image} 
-                          alt={product.name} 
-                          className="w-full h-32 md:h-48 object-contain group-hover:scale-105 transition-transform duration-500 ease-out" 
-                          loading="lazy" 
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="w-full h-32 md:h-48 object-contain group-hover:scale-105 transition-transform duration-500 ease-out"
+                          loading="lazy"
                         />
                       </div>
-                      
+
                       {/* Content Area */}
                       <div className="p-4 md:p-6 flex flex-col flex-1 border-t border-border/50">
                         <h3 className="font-heading font-semibold text-sm md:text-lg mb-2 line-clamp-1">{product.name}</h3>
-                        
+
                         {/* Specs badges */}
                         <div className="flex flex-wrap gap-1.5 mb-4">
                           {product.specs.slice(0, 3).map((s) => (
@@ -279,13 +271,13 @@ const Catalog = () => {
                             </span>
                           )}
                         </div>
-                        
+
                         <div className="mt-auto flex flex-col sm:flex-row sm:items-center justify-between gap-3 md:gap-4 pt-2">
                           <span className="font-heading text-lg md:text-2xl font-bold">
                             S/{product.price}
                           </span>
-                          <button 
-                            onClick={() => addToCart(product)} 
+                          <button
+                            onClick={() => addToCart(product)}
                             className="btn-primary-gradient !px-0 sm:!px-4 !py-2 w-full sm:w-auto flex items-center justify-center gap-2 text-xs md:text-sm"
                             aria-label={`Agregar ${product.name} al carrito`}
                           >
@@ -303,44 +295,42 @@ const Catalog = () => {
           </div>
         </div>
       </main>
-      
+
       {/* Mobile Slide-up Filter Panel */}
-      <div 
-        className={`fixed inset-0 z-50 transition-opacity duration-300 lg:hidden ${
-          showMobileFilters ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}
+      <div
+        className={`fixed inset-0 z-50 transition-opacity duration-300 lg:hidden ${showMobileFilters ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          }`}
       >
         {/* Backdrop overlay */}
-        <div 
-          className="absolute inset-0 bg-background/80 backdrop-blur-sm" 
+        <div
+          className="absolute inset-0 bg-background/80 backdrop-blur-sm"
           onClick={() => setShowMobileFilters(false)}
         />
-        
+
         {/* Panel */}
-        <div 
-          className={`absolute bottom-0 left-0 right-0 max-h-[85vh] bg-card border-t border-border shadow-2xl rounded-t-3xl flex flex-col transition-transform duration-300 ease-out ${
-            showMobileFilters ? "translate-y-0" : "translate-y-full"
-          }`}
+        <div
+          className={`absolute bottom-0 left-0 right-0 max-h-[85vh] bg-card border-t border-border shadow-2xl rounded-t-3xl flex flex-col transition-transform duration-300 ease-out ${showMobileFilters ? "translate-y-0" : "translate-y-full"
+            }`}
         >
           {/* Header */}
           <div className="flex items-center justify-between p-6 border-b border-border/50 pb-4">
             <h3 className="font-heading text-xl font-bold">Filtros</h3>
-            <button 
+            <button
               onClick={() => setShowMobileFilters(false)}
               className="p-2 -mr-2 text-muted-foreground hover:bg-muted rounded-full transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
-          
+
           {/* Scrollable Content */}
           <div className="overflow-y-auto p-6 flex-1 pb-32">
             <FilterPanel />
           </div>
-          
+
           {/* Fixed Bottom Action */}
           <div className="absolute bottom-0 left-0 right-0 p-6 bg-card border-t border-border/50 bg-gradient-to-t from-card via-card to-transparent pt-12">
-            <button 
+            <button
               onClick={() => setShowMobileFilters(false)}
               className="btn-primary-gradient w-full !py-3 font-semibold text-base shadow-lg shadow-primary/20"
             >

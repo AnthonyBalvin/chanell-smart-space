@@ -1,9 +1,18 @@
+import { motion } from "framer-motion";
+
 const Footer = () => {
   return (
-    <footer style={{ background: "var(--gradient-footer)" }} className="border-t border-border/30">
-      <div className="section-container py-16">
-        <div className="grid md:grid-cols-3 gap-12">
-          <div className="space-y-4">
+    <motion.footer 
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, margin: "-20px" }}
+      transition={{ duration: 0.8 }}
+      style={{ background: "var(--gradient-footer)" }} 
+      className="border-t border-border/30"
+    >
+      <div className="section-container py-16 lg:py-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 md:gap-12 text-center sm:text-left">
+          <div className="space-y-4 flex flex-col items-center sm:items-start">
             <h3 className="font-heading text-xl font-bold">
               <span className="gradient-text">Chanell</span> Tecnología
             </h3>
@@ -44,6 +53,17 @@ const Footer = () => {
                   <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" />
                 </svg>
               </a>
+              <a
+                href="https://wa.me/51934301716"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-xl bg-card flex items-center justify-center hover:bg-primary/10 transition-colors border border-border/50"
+                aria-label="WhatsApp"
+              >
+                <svg className="w-5 h-5 text-foreground" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12.031 0C5.394 0 0 5.405 0 12.067c0 2.126.551 4.195 1.594 6.012L.125 24l6.16-1.579a11.977 11.977 0 005.746 1.463h.005c6.634 0 12.029-5.405 12.029-12.067C24.065 5.405 18.667 0 12.031 0zM12.031 21.84h-.005a9.927 9.927 0 01-5.048-1.378l-.361-.215-3.753.985.996-3.666-.237-.377A9.957 9.957 0 012.053 12.067c0-5.509 4.498-10.003 10.005-10.003s9.977 4.494 9.977 10.003c0 5.51-4.469 10.003-9.977 10.003zm5.485-7.461c-.302-.151-1.78-.881-2.057-.981-.277-.101-.478-.152-.679.151-.201.303-.781.981-.956 1.183-.176.202-.353.227-.655.075-.301-.151-1.27-.47-2.422-1.498-.897-.801-1.503-1.79-1.68-2.092-.176-.302-.019-.465.132-.616.136-.135.302-.352.453-.529.151-.176.202-.303.302-.504.101-.202.05-.378-.025-.529-.076-.151-.679-1.64-.93-2.246-.244-.591-.493-.51-.679-.52-.176-.01-.378-.01-.58-.01-.202 0-.529.076-.806.378-.277.303-1.058 1.033-1.058 2.518 0 1.485 1.082 2.922 1.233 3.123.151.202 2.126 3.251 5.148 4.553 2.155.932 2.871.807 3.398.681.583-.14 1.78-.731 2.031-1.437.252-.707.252-1.312.176-1.437-.076-.126-.277-.202-.579-.353z" />
+                </svg>
+              </a>
             </div>
           </div>
 
@@ -57,19 +77,12 @@ const Footer = () => {
           </div>
 
           <div className="space-y-4">
-            <h4 className="font-heading font-semibold">Ubicación</h4>
-            <div className="text-sm text-muted-foreground space-y-1">
+            <h4 className="font-heading font-semibold text-foreground">Ubicación</h4>
+            <div className="text-sm text-muted-foreground space-y-2">
+              <p>Av. Sáenz Peña 100, Puente Piedra 15118</p>
               <p>Lima, Perú</p>
-              <p>Showroom con cita previa</p>
+              <p className="text-primary font-medium">Atención sin cita previa</p>
             </div>
-            <a
-              href="https://wa.me/51934301716"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
-            >
-              💬 WhatsApp: +51 934 301 716
-            </a>
           </div>
         </div>
 
@@ -79,7 +92,7 @@ const Footer = () => {
           </p>
         </div>
       </div>
-    </footer>
+    </motion.footer>
   );
 };
 
