@@ -2,12 +2,12 @@ import { motion } from "framer-motion";
 
 const Footer = () => {
   return (
-    <motion.footer 
+    <motion.footer
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, margin: "-20px" }}
       transition={{ duration: 0.8 }}
-      style={{ background: "var(--gradient-footer)" }} 
+      style={{ background: "var(--gradient-footer)" }}
       className="border-t border-border/30"
     >
       <div className="section-container py-16 lg:py-20">

@@ -59,60 +59,46 @@ const ValueSection = () => {
         {/* Background glow for section */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-[300px] bg-gradient-to-r from-primary/5 via-accent/5 to-purple-500/5 blur-[120px] -z-10 rounded-full" />
 
-        <motion.div 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={containerVariants}
+        <div
           className="text-center mb-16"
         >
-          <motion.h2 variants={itemVariants} className="font-heading text-3xl md:text-5xl font-bold mb-4">
+          <h2 className="font-heading text-3xl md:text-5xl font-bold mb-4">
             ¿Por qué elegir <span className="gradient-text">Chanell</span>?
-          </motion.h2>
-          <motion.p variants={itemVariants} className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          </h2>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Más que una tienda de tecnología, somos tu aliado en{" "}
             <span className="text-accent font-medium">entretenimiento inteligente</span>.
-          </motion.p>
-        </motion.div>
+          </p>
+        </div>
 
         {/* Grid Layout: Vertical on mobile, 2x2 on tablet, 4x1 on PC */}
-        <motion.div 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={containerVariants}
+        <div
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
         >
           {values.map((v) => (
-            <motion.div 
-              key={v.title} 
-              variants={itemVariants}
-              whileHover={{ y: -6, scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="glass-card p-8 flex flex-col items-start sm:items-center text-left sm:text-center relative group rounded-3xl overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-xl hover:shadow-primary/5"
+            <div
+              key={v.title}
+              className="glass-card p-8 flex flex-col items-start sm:items-center text-left sm:text-center relative rounded-3xl overflow-hidden shadow-sm shadow-primary/5"
             >
-              {/* Premium Glow Effect on Hover */}
-              <div className={`absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity duration-500 bg-gradient-to-br ${v.accent === "blue" ? "from-accent to-transparent" : "from-primary to-transparent"}`} />
-              
+
               {/* Icon Container with subtle bump and glow */}
-              <div className={`w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center mb-5 relative z-10 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 shadow-sm ${
-                v.accent === "blue" 
-                  ? "bg-accent/10 text-accent group-hover:bg-accent/20 group-hover:shadow-accent/20" 
-                  : "bg-primary/10 text-primary group-hover:bg-primary/20 group-hover:shadow-primary/20"
-              }`}>
+              <div className={`w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center mb-5 relative z-10 shadow-sm ${v.accent === "blue"
+                  ? "bg-accent/10 text-accent"
+                  : "bg-primary/10 text-primary"
+                }`}>
                 <v.icon className="w-7 h-7 sm:w-8 sm:h-8" />
               </div>
-              
+
               <h3 className="font-heading font-semibold text-xl mb-2 sm:mb-3 relative z-10 transition-colors duration-300">
                 {v.title}
               </h3>
-              
+
               <p className="text-sm text-muted-foreground leading-relaxed relative z-10 w-full">
                 {v.description}
               </p>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

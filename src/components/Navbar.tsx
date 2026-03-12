@@ -35,10 +35,10 @@ const Navbar = () => {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isSolid || (mobileOpen && isSolid)
-          ? "bg-white/40 backdrop-blur-2xl border-b border-gray-200/50 shadow-sm"
-          : mobileOpen
-            ? "bg-transparent"
-            : "bg-transparent"
+        ? "bg-white/40 backdrop-blur-2xl border-b border-gray-200/50 shadow-sm"
+        : mobileOpen
+          ? "bg-transparent"
+          : "bg-transparent"
         }`}
     >
       <div className="section-container flex items-center justify-between h-16 md:h-20 py-2">
@@ -54,8 +54,8 @@ const Navbar = () => {
                 key={link.label}
                 to={link.to}
                 className={`text-sm font-medium transition-colors duration-300 ${isSolid
-                    ? "text-gray-900 hover:text-blue-500"
-                    : "text-white/90 hover:text-blue-400 drop-shadow-md"
+                  ? "text-gray-900 hover:text-blue-500"
+                  : "text-white/90 hover:text-blue-400 drop-shadow-md"
                   }`}
               >
                 {link.label}
@@ -65,8 +65,8 @@ const Navbar = () => {
                 key={link.label}
                 href={'href' in link ? link.href : '#'}
                 className={`text-sm font-medium transition-colors duration-300 ${isSolid
-                    ? "text-gray-900 hover:text-blue-500"
-                    : "text-white/90 hover:text-blue-400 drop-shadow-md"
+                  ? "text-gray-900 hover:text-blue-500"
+                  : "text-white/90 hover:text-blue-400 drop-shadow-md"
                   }`}
               >
                 {link.label}
@@ -82,8 +82,8 @@ const Navbar = () => {
             <button
               onClick={() => setIsCartOpen(true)}
               className={`flex items-center gap-2 p-2 px-3 rounded-full md:rounded-xl transition-all shadow-sm ${isSolid
-                  ? "hover:bg-gray-100 border border-transparent hover:border-gray-200 bg-black/5 backdrop-blur-sm text-gray-900"
-                  : "bg-black/20 backdrop-blur-md border border-white/20 hover:bg-black/40 text-white"
+                ? "hover:bg-gray-100 border border-transparent hover:border-gray-200 bg-black/5 backdrop-blur-sm text-gray-900"
+                : "bg-black/20 backdrop-blur-md border border-white/20 hover:bg-black/40 text-white"
                 }`}
             >
               <ShoppingCart className={`w-5 h-5 ${isSolid ? "text-gray-900" : "text-white"}`} />
@@ -149,8 +149,8 @@ const Navbar = () => {
           {/* Mobile Menu Toggle */}
           <button
             className={`md:hidden p-2 rounded-xl transition-all shadow-sm ${isSolid
-                ? "hover:bg-gray-100 border border-transparent hover:border-gray-200 bg-black/5 backdrop-blur-sm text-gray-900"
-                : "bg-black/20 backdrop-blur-md border border-white/20 hover:bg-black/40 text-white"
+              ? "hover:bg-gray-100 border border-transparent hover:border-gray-200 bg-black/5 backdrop-blur-sm text-gray-900"
+              : "bg-black/20 backdrop-blur-md border border-white/20 hover:bg-black/40 text-white"
               }`}
             onClick={() => setMobileOpen(!mobileOpen)}
           >
@@ -162,8 +162,8 @@ const Navbar = () => {
       {/* Mobile Menu Dropdown */}
       {mobileOpen && (
         <div className={`md:hidden backdrop-blur-2xl transition-all ${isSolid
-            ? "bg-white/95 border-b border-gray-200 text-gray-900"
-            : "bg-black/60 border-b border-white/10 text-white"
+          ? "bg-white/95 border-b border-gray-200 text-gray-900"
+          : "bg-black/60 border-b border-white/10 text-white"
           } px-4 pb-4`}>
           {navLinks.map((link) =>
             'to' in link && link.to ? (
@@ -172,8 +172,8 @@ const Navbar = () => {
                 to={link.to}
                 onClick={() => setMobileOpen(false)}
                 className={`block w-full py-3 text-center text-[15px] font-medium transition-colors duration-300 ${isSolid
-                    ? "text-gray-900 hover:text-blue-500"
-                    : "text-white/80 hover:text-blue-400"
+                  ? "text-gray-900 hover:text-blue-500"
+                  : "text-white/80 hover:text-blue-400"
                   }`}
               >
                 {link.label}
@@ -184,8 +184,8 @@ const Navbar = () => {
                 href={'href' in link ? link.href : '#'}
                 onClick={() => setMobileOpen(false)}
                 className={`block w-full py-3 text-center text-[15px] font-medium transition-colors duration-300 ${isSolid
-                    ? "text-gray-900 hover:text-blue-500"
-                    : "text-white/80 hover:text-blue-400"
+                  ? "text-gray-900 hover:text-blue-500"
+                  : "text-white/80 hover:text-blue-400"
                   }`}
               >
                 {link.label}

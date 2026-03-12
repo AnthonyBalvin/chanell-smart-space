@@ -7,8 +7,13 @@
     <meta name="description" content="Tu tienda de confianza en tecnología de entretenimiento. Proyectores inteligentes y TV Box." />
     <meta name="author" content="Chanell Tecnologia" />
 
+    <link rel="icon" type="image/png" href="/logo-chanell.png?v=2" />
+    <link rel="apple-touch-icon" href="/logo-chanell.png?v=2" />
+    <link rel="shortcut icon" href="/favicon.ico?v=2" />
+    
     <meta property="og:title" content="Chanell Tecnologia" />
     <meta property="og:description" content="Tu tienda de confianza en tecnología de entretenimiento. Proyectores inteligentes y TV Box." />
+    <meta property="og:image" content="/logo-chanell.png?v=2" />
     <meta property="og:type" content="website" />
 
     <meta name="twitter:card" content="summary_large_image" />
@@ -16,17 +21,6 @@
   </head>
 
   <body>
-    <!-- Fallback if the projector SVG isn't parsed perfectly as ICO by all browsers, we map it directly as SVG -->
-    <script>
-      const link = document.querySelector("link[rel~='icon']");
-      if (!link) {
-          const newLink = document.createElement('link');
-          newLink.rel = 'icon';
-          newLink.type = 'image/svg+xml';
-          newLink.href = '/favicon.ico'; // we downloaded a svg and named it .ico
-          document.head.appendChild(newLink);
-      }
-    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

@@ -1,6 +1,6 @@
 import { Star } from "lucide-react";
-import { motion, useAnimationControls } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { motion, useAnimationControls, useMotionValue } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 const testimonials = [
   {
@@ -42,36 +42,92 @@ const duplicatedTestimonials = [...testimonials, ...testimonials];
 
 const TestimonialsSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
   const controls = useAnimationControls();
-  const T_DURATION = testimonials.length * 9; // Slow base speed: 36 seconds per cycle
+  
+  // Speed settings
+  const SPEED = 60; // Pixels per second
+  const [containerWidth, setContainerWidth] = useState(0);
 
   useEffect(() => {
-    // Start continuous movement
-    controls.start({
-      x: ["0%", "-50%"],
-      transition: {
-        ease: "linear",
-        duration: T_DURATION,
-        repeat: Infinity,
-      },
-    });
-  }, [controls, T_DURATION]);
+    if (!containerRef.current) return;
+    
+    const updateWidth = () => {
+      if (containerRef.current) {
+        setContainerWidth(containerRef.current.scrollWidth / 2);
+      }
+    };
 
-  const handleHoverStart = () => {
-    // Stop the animation on hover/touch
+    updateWidth();
+    window.addEventListener("resize", updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
+  }, []);
+
+  useEffect(() => {
+    if (containerWidth === 0) return;
+
+    const startAnimation = () => {
+      const currentX = x.get();
+      const remainingDistance = containerWidth + currentX;
+      const duration = remainingDistance / SPEED;
+
+      controls.start({
+        x: -containerWidth,
+        transition: {
+          ease: "linear",
+          duration: duration,
+        },
+      }).then(() => {
+        x.set(0);
+        startAnimation();
+      });
+    };
+
+    startAnimation();
+
+    return () => controls.stop();
+  }, [containerWidth, controls, x]);
+
+  const handleDragStart = () => {
     controls.stop();
   };
 
-  const handleHoverEnd = () => {
-    // Read the current position and resume the animation from that point
-    // Note: To resume seamlessly, framer-motion requires passing the current value to the start sequence, but since x is a complex percentage string, it's easier to just restart the animation from the halted state without snapping back to 0. We can do this safely by simply calling start again without passing '0%'.
+  const handleDragEnd = (_: any, info: any) => {
+    const currentX = x.get();
+    
+    // Wrap x around if it goes out of bounds
+    if (currentX > 0) {
+      x.set(currentX - containerWidth);
+    } else if (currentX < -containerWidth) {
+      x.set(currentX + containerWidth);
+    }
+
+    // Resume animation
+    const remainingDistance = containerWidth + x.get();
+    const duration = remainingDistance / SPEED;
+
     controls.start({
-      x: "-50%",
+      x: -containerWidth,
       transition: {
         ease: "linear",
-        duration: T_DURATION,
-        repeat: Infinity,
+        duration: duration,
       },
+    }).then(() => {
+      x.set(0);
+      // Restart loop
+      const loop = () => {
+        controls.start({
+          x: -containerWidth,
+          transition: {
+            ease: "linear",
+            duration: containerWidth / SPEED,
+          },
+        }).then(() => {
+          x.set(0);
+          loop();
+        });
+      };
+      loop();
     });
   };
 
@@ -90,29 +146,27 @@ const TestimonialsSection = () => {
           </h2>
         </div>
 
-        {/* Marquee constrained within section-container bounds */}
-        <div className="relative w-full max-w-6xl mx-auto overflow-hidden rounded-[2rem] p-4">
+        <div className="relative w-full max-w-6xl mx-auto overflow-hidden rounded-[2rem] p-4 cursor-grab active:cursor-grabbing">
           
-          {/* Subtle fade edges to obscure the clipping point */}
           <div className="absolute left-0 top-0 bottom-0 w-8 md:w-20 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
           <div className="absolute right-0 top-0 bottom-0 w-8 md:w-20 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
 
           <motion.div
             ref={containerRef}
+            style={{ x }}
+            drag="x"
+            dragConstraints={{ left: -containerWidth, right: 0 }}
+            onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
             className="flex w-max gap-4 md:gap-6 pr-4 md:pr-6 items-stretch"
             animate={controls}
-            onHoverStart={handleHoverStart}
-            onHoverEnd={handleHoverEnd}
-            onTouchStart={handleHoverStart}
-            onTouchEnd={handleHoverEnd}
           >
             {duplicatedTestimonials.map((t, idx) => (
               <div 
                 key={idx} 
-                className="glass-card w-[280px] md:w-[350px] p-6 lg:p-8 rounded-[1.5rem] flex-shrink-0 flex flex-col pointer-events-auto hover:shadow-lg transition-shadow duration-300"
+                className="glass-card w-[280px] md:w-[350px] p-6 lg:p-8 rounded-[1.5rem] flex-shrink-0 flex flex-col pointer-events-none select-none"
               >
                 <div className="flex items-center gap-4 mb-4">
-                  {/* Humanizing Avatar */}
                   <div className={`w-12 h-12 flex items-center justify-center rounded-full text-white font-bold text-lg shadow-sm border border-white/20 ${t.color}`}>
                     {t.initial}
                   </div>
