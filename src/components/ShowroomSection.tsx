@@ -98,7 +98,7 @@ const ShowroomSection = () => {
                   <Clock className="w-5 h-5" />
                 </div>
                 <div className="text-left">
-                  <p className="font-medium text-foreground text-sm">Lunes a Sábado</p>
+                  <p className="font-medium text-foreground text-sm">Lunes a Domingo</p>
                   <p className="text-[13px] text-muted-foreground mt-0.5">10:00 AM – 8:00 PM</p>
                 </div>
               </div>

@@ -72,7 +72,7 @@ const Footer = () => {
             <div className="text-sm text-muted-foreground space-y-1">
               <p>Lunes a Viernes: 9:00 AM – 7:00 PM</p>
               <p>Sábados: 9:00 AM – 2:00 PM</p>
-              <p>Domingos: Cerrado</p>
+              <p>Domingos: 9:00 AM – 2:00 PM</p>
             </div>
           </div>
 
