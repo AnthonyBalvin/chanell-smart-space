@@ -62,7 +62,7 @@ const HeroSection = () => {
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
             <a
-              href="https://wa.me/51934301716?text=Hola%2C%20me%20interesa%20conocer%20sus%20productos"
+              href="https://wa.me/51932557893?text=Hola%2C%20me%20interesa%20conocer%20sus%20productos"
               target="_blank"
               rel="noopener noreferrer"
               className="w-full sm:w-auto text-lg !py-4 !px-8 rounded-full flex items-center justify-center gap-2 bg-black/60 hover:bg-black/75 border-2 border-white text-white font-semibold transition-all shadow-xl hover:shadow-[0_0_20px_rgba(255,255,255,0.15)]"

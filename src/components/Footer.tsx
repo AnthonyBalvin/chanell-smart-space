@@ -32,7 +32,7 @@ const Footer = () => {
                 </svg>
               </a>
               <a
-                href="https://facebook.com"
+                href="https://www.facebook.com/profile.php?id=61562606233900"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-xl bg-card flex items-center justify-center hover:bg-primary/10 transition-colors border border-border/50"
@@ -43,7 +43,7 @@ const Footer = () => {
                 </svg>
               </a>
               <a
-                href="https://tiktok.com"
+                href="https://www.tiktok.com/@chanelltecnologia1?_r=1&_t=ZS-948zMPZ28nK"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-xl bg-card flex items-center justify-center hover:bg-primary/10 transition-colors border border-border/50"
@@ -54,7 +54,7 @@ const Footer = () => {
                 </svg>
               </a>
               <a
-                href="https://wa.me/51934301716"
+                href="https://wa.me/51932557893"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-xl bg-card flex items-center justify-center hover:bg-primary/10 transition-colors border border-border/50"
@@ -70,18 +70,26 @@ const Footer = () => {
           <div className="space-y-4">
             <h4 className="font-heading font-semibold">Horario de atención</h4>
             <div className="text-sm text-muted-foreground space-y-1">
-              <p>Lunes a Viernes: 9:00 AM – 7:00 PM</p>
-              <p>Sábados: 9:00 AM – 2:00 PM</p>
-              <p>Domingos: 9:00 AM – 2:00 PM</p>
+              <p>Todos los días de 6:00 a.m. a 9:00 p.m.</p>
             </div>
           </div>
 
           <div className="space-y-4">
             <h4 className="font-heading font-semibold text-foreground">Ubicación</h4>
-            <div className="text-sm text-muted-foreground space-y-2">
-              <p>Av. Sáenz Peña 100, Puente Piedra 15118</p>
-              <p>Lima, Perú</p>
-              <p className="text-primary font-medium">Atención sin cita previa</p>
+            <div className="text-sm text-muted-foreground space-y-2 flex flex-col items-center sm:items-start">
+              <a 
+                href="https://maps.app.goo.gl/gLPaCxYiFB66zPou8" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="block hover:text-primary transition-colors group text-center sm:text-left"
+              >
+                <p>Av. Sáenz Peña 100, Puente Piedra 15118</p>
+                <p>Lima, Perú</p>
+                <p className="text-primary font-medium mt-1 flex items-center justify-center sm:justify-start gap-1 group-hover:underline">
+                  Ver en Google Maps <span className="text-xs group-hover:translate-x-0.5 transition-transform">→</span>
+                </p>
+              </a>
+              <p className="text-primary font-medium mt-2">Atención sin cita previa</p>
             </div>
           </div>
         </div>

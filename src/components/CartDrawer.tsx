@@ -18,7 +18,7 @@ const CartDrawer = () => {
       `Hola, quiero comprar los siguientes productos:\n\n${productLines}\n\n*Total: S/${total}*\n\nMi nombre es:\nMi distrito es:`
     );
 
-    window.open(`https://wa.me/51934301716?text=${message}`, "_blank");
+    window.open(`https://wa.me/51932557893?text=${message}`, "_blank");
   };
 
   if (!isCartOpen) return null;

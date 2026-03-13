@@ -20,7 +20,7 @@ const itemVariants: import("framer-motion").Variants = {
 
 const WarrantySection = () => {
   const points = [
-    { label: "6 meses de garantía en todos los productos", detail: "Cobertura real desde el día de tu compra." },
+    { label: "1 año de garantía en todos los productos", detail: "Cobertura real desde el día de tu compra." },
     { label: "Soporte técnico por WhatsApp", detail: "Te atendemos rápido, sin esperas ni trámites." },
     { label: "Reemplazo por defecto de fábrica", detail: "Si el equipo falla por fabricación, lo reemplazamos." },
     { label: "Asesoría post-venta incluida", detail: "Te acompañamos después de tu compra." },

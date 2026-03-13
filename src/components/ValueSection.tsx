@@ -11,7 +11,7 @@ const values = [
   {
     icon: Shield,
     title: "Garantía real",
-    description: "6 meses de garantía con soporte técnico incluido en todos nuestros productos.",
+    description: "1 año de garantía con soporte técnico incluido en todos nuestros productos.",
     accent: "pink" as const,
   },
   {
@@ -70,11 +70,10 @@ const ValueSection = () => {
             >
               {/* Icon */}
               <div
-                className={`w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-xl sm:rounded-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 ${
-                  v.accent === "blue"
+                className={`w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-xl sm:rounded-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 ${v.accent === "blue"
                     ? "bg-accent/10 border border-accent/15 text-accent"
                     : "bg-primary/10 border border-primary/15 text-primary"
-                }`}
+                  }`}
               >
                 <v.icon className="w-6 h-6 sm:w-7 sm:h-7" strokeWidth={1.6} />
               </div>

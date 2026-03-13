@@ -23,7 +23,7 @@ const FinalCTA = () => {
             Ver catálogo
           </Link>
           <a
-            href="https://wa.me/51934301716?text=Hola%2C%20me%20interesa%20comprar%20un%20producto"
+            href="https://wa.me/51932557893?text=Hola%2C%20me%20interesa%20comprar%20un%20producto"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-outline-premium inline-flex items-center"

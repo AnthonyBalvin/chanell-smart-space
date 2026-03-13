@@ -9,7 +9,7 @@ const faqs = [
   },
   {
     q: "¿Cuánto dura la garantía?",
-    a: "Todos nuestros productos cuentan con 6 meses de garantía que cubre defectos de fábrica. Además, ofrecemos soporte técnico por WhatsApp.",
+    a: "Todos nuestros productos cuentan con 1 año de garantía que cubre defectos de fábrica. Además, ofrecemos soporte técnico por WhatsApp.",
   },
   {
     q: "¿Es difícil instalar un TV Box?",
@@ -21,11 +21,11 @@ const faqs = [
   },
   {
     q: "¿Hacen envíos a todo el Perú?",
-    a: "Sí, realizamos envíos a todo el Perú. Los envíos a Lima son de 1-2 días y a provincias de 3-5 días hábiles.",
+    a: "Sí, realizamos envíos a todo el Perú mediante Shalom y Olva Courier. Además, contamos con motorizados para entregas rápidas dentro de la ciudad.",
   },
   {
-    q: "¿Puedo probar los productos antes de comprar?",
-    a: "¡Sí! Puedes visitarnos en nuestro showroom para probar cualquier equipo antes de tomar tu decisión. Atención sin cita previa.",
+    q: "¿Dónde están ubicados?",
+    a: "Nos encontramos en Av. Sáenz Peña 100, Puente Piedra 15118, Lima, Perú. Atendemos sin cita previa. \n\n[Ver ubicación en Google Maps](https://maps.app.goo.gl/gLPaCxYiFB66zPou8)",
   },
 ];
 
@@ -54,7 +54,7 @@ const FAQSection = () => {
   return (
     <section id="faq" className="py-20 md:py-28">
       <div className="section-container max-w-3xl">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
@@ -66,7 +66,7 @@ const FAQSection = () => {
           </h2>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -96,7 +96,25 @@ const FAQSection = () => {
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                   >
                     <div className="px-5 pb-5">
-                      <p className="text-sm text-muted-foreground leading-relaxed">{faq.a}</p>
+                      <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-wrap">
+                        {faq.a.includes('Google Maps') ? (
+                          <>
+                            Nos encontramos en Av. Sáenz Peña 100, Puente Piedra 15118, Lima, Perú. Atendemos sin cita previa.
+                            <br /><br />
+                            <a
+                              href="https://maps.app.goo.gl/gLPaCxYiFB66zPou8"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 mt-2 group"
+                            >
+                              Ver en Google Maps
+                              <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+                            </a>
+                          </>
+                        ) : (
+                          faq.a
+                        )}
+                      </p>
                     </div>
                   </motion.div>
                 )}
