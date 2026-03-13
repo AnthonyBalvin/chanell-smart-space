@@ -2,13 +2,12 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import ValueSection from "@/components/ValueSection";
 import FeaturedProducts from "@/components/FeaturedProducts";
-import EntertainmentSection from "@/components/EntertainmentSection";
 import HowItWorks from "@/components/HowItWorks";
-import ShowroomSection from "@/components/ShowroomSection";
 import WarrantySection from "@/components/WarrantySection";
+import ShippingSection from "@/components/ShippingSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
-import FinalCTA from "@/components/FinalCTA";
 import FAQSection from "@/components/FAQSection";
+import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
 import CartDrawer from "@/components/CartDrawer";
 
@@ -20,13 +19,12 @@ const Index = () => {
       <HeroSection />
       <ValueSection />
       <FeaturedProducts />
-      <EntertainmentSection />
       <HowItWorks />
-      <ShowroomSection />
       <WarrantySection />
+      <ShippingSection />
       <TestimonialsSection />
-      <FinalCTA />
       <FAQSection />
+      <FinalCTA />
       <Footer />
     </div>
   );
