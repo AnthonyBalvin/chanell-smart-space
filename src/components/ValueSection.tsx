@@ -44,8 +44,8 @@ const ValueSection = () => {
           </p>
         </div>
 
-        {/* Icon strip — simple icons + short text, no card boxes */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-10">
+        {/* Mobile: 1-col horizontal rows. Tablet: 2-col. Desktop: 4-col */}
+        <div className="flex flex-col gap-5 sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:gap-x-6 sm:gap-y-10">
           {values.map((v, i) => (
             <motion.div
               key={v.title}
@@ -53,11 +53,11 @@ const ValueSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="flex flex-col items-center text-center group"
+              className="flex items-center gap-4 sm:flex-col sm:items-center sm:text-center group"
             >
-              {/* Icon with soft tinted container */}
+              {/* Icon */}
               <div
-                className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110 shadow-sm ${
+                className={`w-14 h-14 shrink-0 rounded-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 shadow-sm ${
                   v.accent === "blue"
                     ? "bg-accent/10 border border-accent/15 text-accent"
                     : "bg-primary/10 border border-primary/15 text-primary"
@@ -65,12 +65,16 @@ const ValueSection = () => {
               >
                 <v.icon className="w-7 h-7" strokeWidth={1.6} />
               </div>
-              <h3 className="font-heading font-semibold text-[15px] md:text-base mb-1.5 leading-tight">
-                {v.title}
-              </h3>
-              <p className="text-xs md:text-sm text-muted-foreground leading-relaxed max-w-[160px]">
-                {v.description}
-              </p>
+
+              {/* Text */}
+              <div className="sm:mt-0">
+                <h3 className="font-heading font-semibold text-[15px] md:text-base leading-tight mb-1">
+                  {v.title}
+                </h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {v.description}
+                </p>
+              </div>
             </motion.div>
           ))}
         </div>
