@@ -44,7 +44,7 @@ const Navbar = () => {
       <div className="section-container flex items-center justify-between h-16 md:h-20 py-2">
         <Link to="/" className="font-heading text-xl md:text-2xl font-bold tracking-tight">
           <span className="gradient-text">Chanell</span>{" "}
-          <span className={isSolid ? "text-gray-900" : "text-white"}>Tecnología</span>
+          <span className="gradient-text-blue">Tecnología</span>
         </Link>
 
         <div className="hidden md:flex items-center gap-8">

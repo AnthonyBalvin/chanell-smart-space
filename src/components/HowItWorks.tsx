@@ -100,7 +100,7 @@ const HowItWorks = () => {
         {/* ── MOBILE: Vertical timeline ── */}
         <div className="md:hidden relative">
           {/* Vertical line */}
-          <div className="absolute left-7 top-4 bottom-4 w-0.5 bg-gradient-to-b from-accent/40 via-primary/30 to-accent/20" />
+          <div className="absolute left-7 top-7 w-0.5 bg-gradient-to-b from-accent/40 via-primary/30 to-transparent" style={{ height: 'calc(100% - 5rem)' }} />
 
           <div className="flex flex-col gap-8 relative z-10">
             {steps.map((step, i) => (
