@@ -14,8 +14,11 @@ const CartDrawer = () => {
       )
       .join("\n\n");
 
+    const totalQuantity = items.reduce((sum, i) => sum + i.quantity, 0);
+    const isSingle = totalQuantity === 1;
+    
     const message = encodeURIComponent(
-      `Hola, quiero comprar los siguientes productos:\n\n${productLines}\n\n*Total: S/${total}*\n\nMi nombre es:\nMi distrito es:`
+      `Hola, quiero comprar ${isSingle ? "el siguiente producto" : "los siguientes productos"}:\n\n${productLines}\n\n*Total: S/${total}*`
     );
 
     window.open(`https://wa.me/51932557893?text=${message}`, "_blank");

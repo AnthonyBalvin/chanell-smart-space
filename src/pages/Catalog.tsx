@@ -237,7 +237,7 @@ const Catalog = () => {
                       className="group flex flex-col bg-card/50 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300"
                     >
                       {/* Image Area with soft background */}
-                      <div className="relative pt-6 pb-4 px-4 bg-gradient-to-b from-white/5 to-transparent flex items-center justify-center">
+                      <Link to={`/producto/${product.id}`} className="relative pt-6 pb-4 px-4 bg-gradient-to-b from-white/5 to-transparent flex items-center justify-center block cursor-pointer">
                         {product.tag && (
                           <span className={`absolute top-3 left-3 z-10 text-[10px] md:text-xs px-2.5 py-1 rounded-full font-medium ${product.tag === 'Más vendido'
                             ? 'bg-accent/10 text-accent border border-accent/20'
@@ -252,11 +252,13 @@ const Catalog = () => {
                           className="w-full h-32 md:h-48 object-contain group-hover:scale-105 transition-transform duration-500 ease-out"
                           loading="lazy"
                         />
-                      </div>
+                      </Link>
 
                       {/* Content Area */}
                       <div className="p-4 md:p-6 flex flex-col flex-1 border-t border-border/50">
-                        <h3 className="font-heading font-semibold text-sm md:text-lg mb-2 line-clamp-1">{product.name}</h3>
+                        <Link to={`/producto/${product.id}`} className="hover:text-primary transition-colors cursor-pointer w-full group/title">
+                          <h3 className="font-heading font-semibold text-sm md:text-lg mb-2 line-clamp-1 group-hover/title:underline decoration-primary/50 underline-offset-4">{product.name}</h3>
+                        </Link>
 
                         {/* Specs badges */}
                         <div className="flex flex-wrap gap-1.5 mb-4">

@@ -1,15 +1,27 @@
 import { createContext, useContext, useState, ReactNode } from "react";
 import { toast } from "sonner";
 
+export type ProductMediaType = "image" | "video";
+
+export interface ProductMedia {
+  url: string;
+  type: ProductMediaType;
+}
+
 export interface Product {
   id: string;
   name: string;
   price: number;
-  image: string;
+  image: string; // Keeping image for backwards compatibility with Catalog if needed
+  images?: string[]; // Legacy array of strings
+  media?: ProductMedia[]; // New structured data for easy images/videos
   category: "projector" | "tvbox";
   tag?: string;
   specs: string[];
   features?: string[];
+  rating?: number;
+  reviewCount?: number;
+  description?: string;
 }
 
 interface CartItem {
